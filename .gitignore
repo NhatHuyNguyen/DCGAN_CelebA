@@ -4,3 +4,7 @@ celeba*
 .history
 *datasets
 debug.log
+*png
+*old*
+*vscode
+*ckpt
