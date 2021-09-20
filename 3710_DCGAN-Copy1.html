@@ -14221,7 +14221,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">DIS_RELU_ALPHA</span> <span class="o">=</span> <span class="mf">0.2</span>
@@ -14266,37 +14266,31 @@ a.anchor-link {
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Model: &#34;sequential_3&#34;
+<pre>Model: &#34;sequential_1&#34;
 _________________________________________________________________
 Layer (type)                 Output Shape              Param #   
 =================================================================
-conv2d_3 (Conv2D)            (None, 32, 32, 64)        3136      
+conv2d (Conv2D)              (None, 32, 32, 64)        3136      
 _________________________________________________________________
-leaky_re_lu_9 (LeakyReLU)    (None, 32, 32, 64)        0         
+leaky_re_lu (LeakyReLU)      (None, 32, 32, 64)        0         
 _________________________________________________________________
-batch_normalization_6 (Batch (None, 32, 32, 64)        256       
+conv2d_1 (Conv2D)            (None, 16, 16, 128)       131200    
 _________________________________________________________________
-conv2d_4 (Conv2D)            (None, 16, 16, 128)       131200    
+leaky_re_lu_1 (LeakyReLU)    (None, 16, 16, 128)       0         
 _________________________________________________________________
-leaky_re_lu_10 (LeakyReLU)   (None, 16, 16, 128)       0         
+conv2d_2 (Conv2D)            (None, 8, 8, 128)         262272    
 _________________________________________________________________
-batch_normalization_7 (Batch (None, 16, 16, 128)       512       
-_________________________________________________________________
-conv2d_5 (Conv2D)            (None, 8, 8, 128)         262272    
-_________________________________________________________________
-leaky_re_lu_11 (LeakyReLU)   (None, 8, 8, 128)         0         
-_________________________________________________________________
-batch_normalization_8 (Batch (None, 8, 8, 128)         512       
+leaky_re_lu_2 (LeakyReLU)    (None, 8, 8, 128)         0         
 _________________________________________________________________
 flatten (Flatten)            (None, 8192)              0         
 _________________________________________________________________
 dropout (Dropout)            (None, 8192)              0         
 _________________________________________________________________
-dense_3 (Dense)              (None, 1)                 8193      
+dense_1 (Dense)              (None, 1)                 8193      
 =================================================================
-Total params: 406,081
-Trainable params: 405,441
-Non-trainable params: 640
+Total params: 404,801
+Trainable params: 404,801
+Non-trainable params: 0
 _________________________________________________________________
 </pre>
 </div>
@@ -14320,13 +14314,16 @@ _________________________________________________________________
 <span class="n">gen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">8</span><span class="o">*</span><span class="mi">8</span><span class="o">*</span><span class="n">latent_dim</span><span class="p">))</span>
 <span class="n">gen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Reshape</span><span class="p">((</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">latent_dim</span><span class="p">)))</span>
 <span class="n">gen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2DTranspose</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="n">KERNEL</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="n">STRIDE</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="n">PADDING</span><span class="p">))</span>
-<span class="n">gen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">GEN_RELU_ALPHA</span><span class="p">))</span>
+<span class="c1"># gen.add(layers.LeakyReLU(alpha=GEN_RELU_ALPHA))</span>
+<span class="n">gen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">ReLU</span><span class="p">())</span>
 <span class="c1"># gen.add(layers.BatchNormalization())</span>
 <span class="n">gen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2DTranspose</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="n">KERNEL</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="n">STRIDE</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="n">PADDING</span><span class="p">))</span>
-<span class="n">gen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">GEN_RELU_ALPHA</span><span class="p">))</span>
+<span class="c1"># gen.add(layers.LeakyReLU(alpha=GEN_RELU_ALPHA))</span>
+<span class="n">gen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">ReLU</span><span class="p">())</span>
 <span class="c1"># gen.add(layers.BatchNormalization())</span>
 <span class="n">gen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2DTranspose</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="n">KERNEL</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="n">STRIDE</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="n">PADDING</span><span class="p">))</span>
-<span class="n">gen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">GEN_RELU_ALPHA</span><span class="p">))</span>
+<span class="c1"># gen.add(layers.LeakyReLU(alpha=GEN_RELU_ALPHA))</span>
+<span class="n">gen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">ReLU</span><span class="p">())</span>
 <span class="c1"># gen.add(layers.BatchNormalization())</span>
 <span class="n">gen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="n">PADDING</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;tanh&quot;</span><span class="p">))</span>
 <span class="n">KERNEL</span>
@@ -14356,31 +14353,25 @@ Layer (type)                 Output Shape              Param #
 =================================================================
 dense_2 (Dense)              (None, 8192)              1056768   
 _________________________________________________________________
-reshape_2 (Reshape)          (None, 8, 8, 128)         0         
+reshape_1 (Reshape)          (None, 8, 8, 128)         0         
 _________________________________________________________________
-conv2d_transpose_6 (Conv2DTr (None, 16, 16, 128)       262272    
+conv2d_transpose (Conv2DTran (None, 16, 16, 128)       262272    
 _________________________________________________________________
-leaky_re_lu_6 (LeakyReLU)    (None, 16, 16, 128)       0         
+re_lu (ReLU)                 (None, 16, 16, 128)       0         
 _________________________________________________________________
-batch_normalization_3 (Batch (None, 16, 16, 128)       512       
+conv2d_transpose_1 (Conv2DTr (None, 32, 32, 256)       524544    
 _________________________________________________________________
-conv2d_transpose_7 (Conv2DTr (None, 32, 32, 256)       524544    
+re_lu_1 (ReLU)               (None, 32, 32, 256)       0         
 _________________________________________________________________
-leaky_re_lu_7 (LeakyReLU)    (None, 32, 32, 256)       0         
+conv2d_transpose_2 (Conv2DTr (None, 64, 64, 512)       2097664   
 _________________________________________________________________
-batch_normalization_4 (Batch (None, 32, 32, 256)       1024      
+re_lu_2 (ReLU)               (None, 64, 64, 512)       0         
 _________________________________________________________________
-conv2d_transpose_8 (Conv2DTr (None, 64, 64, 512)       2097664   
-_________________________________________________________________
-leaky_re_lu_8 (LeakyReLU)    (None, 64, 64, 512)       0         
-_________________________________________________________________
-batch_normalization_5 (Batch (None, 64, 64, 512)       2048      
-_________________________________________________________________
-conv2d_2 (Conv2D)            (None, 64, 64, 3)         38403     
+conv2d_3 (Conv2D)            (None, 64, 64, 3)         38403     
 =================================================================
-Total params: 3,983,235
-Trainable params: 3,981,443
-Non-trainable params: 1,792
+Total params: 3,979,651
+Trainable params: 3,979,651
+Non-trainable params: 0
 _________________________________________________________________
 </pre>
 </div>
