@@ -1,5 +1,5 @@
-# COMP3710 - GAN for CELEBA dataset
+# DCGAN CelebA
 
-Using GAN to generate fake faces based on CELEBA dataset https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html
+A Deep Convolutional General Adversarial Network (DCGAN) to generate fake faces based on CelebA dataset https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html
 
 Platform: Tensorflow - Keras
