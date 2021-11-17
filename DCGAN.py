@@ -23,7 +23,7 @@ for device in physical_devices:
     tf.config.experimental.set_memory_growth(device, True)
 
 # Load dataset
-ds = tfds.load('celeb_a', split='train+test+validation', data_dir=IMG_PATH, shuffle_files=True, download=False)
+ds = tfds.load('celeb_a', split='train+test+validation', data_dir=IMG_PATH, shuffle_files=True, download=True)
 ds = ds.batch(BATCH_SIZE)
 
 # resize image
