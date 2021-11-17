@@ -150,7 +150,7 @@ class GANCallback(tf.keras.callbacks.Callback):
         self.ckpt.start_epoch.assign_add(1)
         self.ckpt_manager.save() 
         if (epoch + 1) % 5 == 0:
-            noise = tf.random.normal(shape=(self.num_img, latent_dim))
+            noise = tf.random.normal(shape=(self.num_img, LATENT_DIM))
             generated_images = self.model.gen(noise)
             generated_images = (generated_images + 1) / 2. # convert back to [0, 1]
             generated_images = generated_images.numpy()
@@ -188,12 +188,12 @@ print("Starting training from Epoch", START_EPOCH)
 
 EPOCHS = 50
 history = gan.fit(
-    ds, epochs=EPOCHS, callbacks=[GANCallback(checkpoint, ckpt_manager, num_img=1, latent_dim=latent_dim)]
+    ds, epochs=EPOCHS, callbacks=[GANCallback(checkpoint, ckpt_manager, num_img=1, latent_dim=LATENT_DIM)]
 )
 
 # Plot the generated images
 num_imgs = 9
-noise = tf.random.normal(shape=(num_imgs, latent_dim))
+noise = tf.random.normal(shape=(num_imgs, LATENT_DIM))
 generated_images = gen(noise)
 generated_images = (generated_images + 1) / 2. # convert back to [0, 1]
 generated_images = generated_images.numpy()
